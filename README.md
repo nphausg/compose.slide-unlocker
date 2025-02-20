@@ -1,3 +1,66 @@
-# Demo-SlideToUnlock
-Demo code for a blog post you can find over at Medium
-https://medium.com/flat-pack-tech/make-a-simple-slide-to-unlock-in-jetpack-compose-c0161acfbbda
+<h1 align="center">
+📌 Draggable Compose Widget - A Modern Drag & Drop UI Component for Android 🚀
+</h1>
+<p align="center">
+<a href="https://reactnative.dev/docs/contributing">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
+</a>
+<br>
+<span>Welcome to <b>Draggable Compose Widget</b>, a lightweight and customizable Jetpack Compose component that enables drag-and-drop functionality with smooth animations and state management. Ideal for building interactive UI elements such as sliders, cards, or custom gestures in Android apps. 🎨📱
+</span>
+<br>
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)
+
+<p align="center">
+<a href="https://revolut.me/nphausg" target="_blank"><img src="docs/demo.gif" alt="nphausg" style="width: 386px !important;" ></a>
+</p>
+
+## 🎯 Vision
+
+
+## ✨ Features
+
+- ✅ **Smooth Drag Animations** Provides seamless motion feedback.
+
+- ✅ **Customizable Anchors**:Easily define start and end positions.
+
+- ✅ **Haptic Feedback**: Enhances the user experience with tactile responses.
+
+- ✅ **Theming Support**: Fully compatible with Material 3 and dark mode.
+
+- ✅ **Easy Integration**: Minimal setup required for existing Compose projects.
+
+## ✨ How to Contribute
+- Fork the repo.
+- Clone your forked repo locally.
+- Create a new branch for your fix or feature.
+- Write tests for your changes (if applicable).
+- Submit a pull request with a detailed explanation of your changes.
+- Please feel free to contact me or make a pull request.
+
+## 📢 Stay Connected
+💬 Found this useful? Give this repo a ⭐ and follow me for more Jetpack Compose content! 🎉
+
+## 🌍 Connect With me
+
+Follow the repository for updates and improvements:
+- GitHub: [@nphausg](https://github.com/nphausg/loomIn)
+- Twitter: [@nphausg](https://x.com/nphausg)
+- Medium: [@nphausg](https://medium.com/@nphausg)
+- LinkedIn: [@nphausg](https://www.linkedin.com/in/nphausg)
+
+
+<a href="https://revolut.me/nphausg" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="nphausg" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
+📜 License
+
+
+## 👇 Author
+
+<p>
+    <a href="https://nphausg.medium.com/" target="_blank">
+    <img src="https://avatars2.githubusercontent.com/u/13111806?s=400&u=f09b6160dbbe2b7eeae0aeb0ab4efac0caad57d7&v=4" width="96" height="96" alt="">
+    </a>
+</p>
