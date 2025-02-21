@@ -2,6 +2,9 @@
 📌 Draggable Compose Widget - A Modern Drag & Drop UI Component for Android 🚀
 </h1>
 <p align="center">
+<a href="https://revolut.me/nphausg" target="_blank"><img src="logo.png" alt="nphausg" style="width: 386px !important;" ></a>
+</p>
+<p align="center">
 <a href="https://reactnative.dev/docs/contributing">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
 </a>
