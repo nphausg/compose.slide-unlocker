@@ -6,15 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,12 +23,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nphausg.app.theme.AppTheme
+import com.nphausg.foundation.ui.draggle.DraggableThumb
 import com.nphausg.foundation.ui.draggle.DraggableUnlocker
-import com.nphausg.foundation.ui.draggle.Thumb
 import kotlinx.coroutines.delay
 
 private const val TIMEOUT = 4
@@ -70,38 +66,15 @@ private fun MainScreen(modifier: Modifier = Modifier) {
             timeLeftInSec = TIMEOUT
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(text = "Normal")
-            Spacer(modifier = Modifier.weight(1f))
-            Thumb(isLoading = false)
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(text = "Loading")
-            Spacer(modifier = Modifier.weight(1f))
-            Thumb(isLoading = true)
-        }
-
         DraggableUnlocker(
             modifier = Modifier,
             isLoading = isLoading,
-            hintText = "Order Collected",
-            onUnlock = {
-                isLoading = true
-            }
+            hintText = { "Order Collected" },
+            onUnlock = { isLoading = true }
         )
     }
 }
+
 @Composable
 @Preview(
     showBackground = true,
