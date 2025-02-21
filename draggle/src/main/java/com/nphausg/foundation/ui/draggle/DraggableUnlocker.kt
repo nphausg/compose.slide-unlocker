@@ -81,7 +81,7 @@ fun DraggableUnlocker(
             initialValue = if (isLoading) Anchor.End else Anchor.Start,
             anchors = calculateAnchors(),
             positionalThreshold = { distance -> distance * 0.5f },
-            velocityThreshold = { with(density) { 96.dp.toPx() } },
+            velocityThreshold = { with(density) { 1024.dp.toPx() } },
             snapAnimationSpec = tween(),
             decayAnimationSpec = decayAnimationSpec,
         )
@@ -97,7 +97,7 @@ fun DraggableUnlocker(
     val overScrollEffect = ScrollableDefaults.overscrollEffect()
 
     val thumbModifier = if (isLoading) {
-        Modifier.offset { IntOffset(draggableState.offset.roundToInt(), 0) }
+        Modifier.offset { IntOffset(draggableState.offset.roundToInt() / 2, 0) }
     } else {
         Modifier.offset { IntOffset(draggableState.offset.roundToInt(), 0) }
     }
