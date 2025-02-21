@@ -1,9 +1,12 @@
+/*
+ * Copyright (c) 2025 nphausg.
+ * All rights reserved.
+ */
 package com.nphausg.foundation.ui.draggle
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,10 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,33 +24,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-private val ICON_PADDING = 8.dp
-
+/**
+ * A composable function that displays a draggable thumb with an icon.
+ * The icon changes based on the loading state.
+ *
+ * @param isLoading A boolean indicating whether the thumb is in a loading state.
+ * @param startIcon A composable function that provides the start icon when not loading.
+ * @param endIcon A composable function that provides the end icon when loading.
+ */
 @Composable
 fun DraggableThumb(
     isLoading: Boolean,
-    startIcon: @Composable BoxScope.() -> Unit = {
-        Icon(
-            tint = DraggableDefaults.Track.StartColor,
-            contentDescription = "",
-            imageVector = Icons.Filled.PlayArrow
-        )
-    },
-    endIcon: @Composable BoxScope.() -> Unit = {
-        CircularProgressIndicator(
-            modifier = Modifier.padding(2.dp),
-            color = DraggableDefaults.Track.StartColor,
-            strokeWidth = 2.dp
-        )
-    },
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    startIcon: @Composable () -> Unit = DraggableDefaults.Thumb.StartIcon,
+    endIcon: @Composable () -> Unit = DraggableDefaults.Thumb.EndIcon
 ) {
-    Box(
-        modifier = modifier
-            .size(DraggableDefaults.Thumb.Size)
-            .background(color = Color.White, shape = CircleShape)
-            .padding(ICON_PADDING),
-    ) {
+    Box(modifier = modifier.size(DraggableDefaults.Thumb.Size)) {
         if (isLoading) {
             endIcon()
         } else {
@@ -60,6 +48,9 @@ fun DraggableThumb(
     }
 }
 
+/**
+ * A preview composable function for DraggableThumb.
+ */
 @Composable
 @Preview
 private fun DraggableThumbPreview() {
