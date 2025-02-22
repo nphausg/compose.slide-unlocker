@@ -11,7 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/draggle" />
+            <option value="$PROJECT_DIR$/draggable" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

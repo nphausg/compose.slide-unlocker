@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "compose.draggable-unlocker"
 include(":app")
-include(":draggle")
+include(":draggable")
