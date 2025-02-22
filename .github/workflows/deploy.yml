@@ -1,7 +1,7 @@
 name: Deploy
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "master" ]
 
 permissions:
   contents: write
@@ -24,21 +24,21 @@ jobs:
           echo "ANDROID_KEYSTORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
           echo "ANDROID_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}" >> $GITHUB_ENV
           echo "ANDROID_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}" >> $GITHUB_ENV
-#      - name: Build AAB
-#        run: |
-#            ./gradlew :app:bundleRelease --no-daemon
+      - name: Build AAB
+        run: |
+            ./gradlew :app:bundleRelease --no-daemon
       - name: Build APK
         run: |
           ./gradlew :app:assembleRelease --no-daemon
       - name: Move files
         run: |
           mv app/build/outputs/apk/release/app-release-unsigned.apk app/build/app-release-unsigned.apk
-#          mv app/build/outputs/bundle/release/app-release.aab app/build/app-release.aab
-#      - name: Upload AAB
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: AABs
-#          path: app/build/app-release.aab
+          mv app/build/outputs/bundle/release/app-release.aab app/build/app-release.aab
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: AABs
+          path: app/build/app-release.aab
       - name: Sign APK
         run: |
           jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
