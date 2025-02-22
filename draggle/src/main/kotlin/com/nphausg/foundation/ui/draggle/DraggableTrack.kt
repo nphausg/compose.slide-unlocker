@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2025 nphausg.
+ * All rights reserved.
+ */
+
 package com.nphausg.foundation.ui.draggle
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,17 +22,13 @@ import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 
-private fun calculateTrackColor(draggableOffset: Float): Color {
-    val endOfColorChangeFraction = 0.4f
-    val fraction = (draggableOffset / endOfColorChangeFraction).coerceIn(0f..1f)
-    return lerp(DraggableDefaults.Track.StartColor, DraggableDefaults.Track.StopColor, fraction)
-}
-
 @Composable
 fun DraggableTrack(
     modifier: Modifier,
     draggableOffset: Float,
     enabled: Boolean = false,
+    startColor: () -> Color = { DraggableDefaults.Track.StartColor },
+    stopColor: () -> Color = { DraggableDefaults.Track.StopColor },
     onSizeChanged: (IntSize) -> Unit,
     content: @Composable BoxScope.() -> Unit
 ) {
@@ -36,7 +36,9 @@ fun DraggableTrack(
     val backgroundColor by remember(enabled, draggableOffset) {
         derivedStateOf {
             if (enabled) {
-                calculateTrackColor(draggableOffset)
+                val endOfColorChangeFraction = 0.6f
+                val fraction = (draggableOffset / endOfColorChangeFraction).coerceIn(0f..1f)
+                lerp(startColor(), stopColor(), fraction)
             } else {
                 Color.Transparent
             }
@@ -46,6 +48,7 @@ fun DraggableTrack(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .height(DraggableDefaults.Track.Height)
             .onSizeChanged(onSizeChanged)
             .background(
                 color = backgroundColor,

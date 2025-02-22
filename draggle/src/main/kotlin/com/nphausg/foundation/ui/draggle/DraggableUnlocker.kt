@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 nphausg.
+ * All rights reserved.
+ */
+
 @file:OptIn(ExperimentalFoundationApi::class)
 
 package com.nphausg.foundation.ui.draggle
@@ -11,24 +16,21 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.gestures.anchoredDraggable
 import androidx.compose.foundation.gestures.animateTo
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -45,20 +47,10 @@ fun DraggableUnlocker(
     hintText: () -> String,
     onUnlock: () -> Unit,
     modifier: Modifier = Modifier,
-    startIcon: @Composable BoxScope.() -> Unit = {
-        Icon(
-            tint = DraggableDefaults.Track.StartColor,
-            contentDescription = "",
-            imageVector = Icons.Filled.PlayArrow
-        )
-    },
-    endIcon: @Composable BoxScope.() -> Unit = {
-        CircularProgressIndicator(
-            modifier = Modifier.padding(2.dp),
-            color = DraggableDefaults.Track.StartColor,
-            strokeWidth = 2.dp
-        )
-    }
+    startColor: () -> Color = { DraggableDefaults.Track.StartColor },
+    stopColor: () -> Color = { DraggableDefaults.Track.StopColor },
+    startIcon: @Composable () -> Unit = DraggableDefaults.Thumb.StartIcon,
+    endIcon: @Composable () -> Unit = DraggableDefaults.Thumb.EndIcon
 ) {
     val density = LocalDensity.current
     val hapticFeedback = LocalHapticFeedback.current
@@ -70,47 +62,54 @@ fun DraggableUnlocker(
         with(density) { fullWidth - (2 * horizontalPadding + DraggableDefaults.Thumb.Size).toPx() }
     }
 
-    fun calculateAnchors() = DraggableAnchors {
-        Anchor.Start at startOfTrackPx
-        Anchor.End at endOfTrackPx
-    }
-
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
     val draggableState = remember {
         AnchoredDraggableState(
             initialValue = if (isLoading) Anchor.End else Anchor.Start,
-            anchors = calculateAnchors(),
+            anchors = DraggableAnchors {
+                Anchor.Start at startOfTrackPx
+                Anchor.End at endOfTrackPx
+            },
             positionalThreshold = { distance -> distance * 0.5f },
-            velocityThreshold = { with(density) { 96.dp.toPx() } },
+            velocityThreshold = { with(density) { 2048.dp.toPx() } },
             snapAnimationSpec = tween(),
             decayAnimationSpec = decayAnimationSpec,
         )
     }
-
+//    val isReachToEnd by remember(draggableState.targetValue) {
+//        derivedStateOf {
+//            draggableState.targetValue == Anchor.End
+//        }
+//    }
     val draggableOffset = draggableState.requireOffset()
 
+//    val thumbOffsetModifier = if (isReachToEnd) {
+//        Modifier.offset { IntOffset(draggableState.offset.roundToInt() / 2, 0) }
+//    } else {
+//        Modifier.offset { IntOffset(draggableState.offset.roundToInt(), 0) }
+//    }
     // Animate to start or end position based on loading state
     LaunchedEffect(isLoading) {
         draggableState.animateTo(if (isLoading) Anchor.End else Anchor.Start)
     }
 
-    val overScrollEffect = ScrollableDefaults.overscrollEffect()
-
-    val thumbModifier = if (isLoading) {
-        Modifier.offset { IntOffset(draggableState.offset.roundToInt(), 0) }
-    } else {
-        Modifier.offset { IntOffset(draggableState.offset.roundToInt(), 0) }
-    }
+    val overscrollEffect = ScrollableDefaults.overscrollEffect()
 
     DraggableTrack(
         modifier = modifier
             .height(DraggableDefaults.Track.Height)
             .fillMaxWidth(),
-        enabled = !isLoading,
+        enabled = true,
+        startColor = startColor,
+        stopColor = stopColor,
         draggableOffset = draggableOffset,
         onSizeChanged = {
             fullWidth = it.width
-            draggableState.updateAnchors(calculateAnchors())
+            draggableState.updateAnchors(
+                DraggableAnchors {
+                    Anchor.Start at startOfTrackPx
+                    Anchor.End at endOfTrackPx
+                })
         },
         content = {
             DraggableHint(
@@ -122,15 +121,16 @@ fun DraggableUnlocker(
             )
 
             DraggableThumb(
+                endIcon = endIcon,
                 isLoading = isLoading,
                 startIcon = startIcon,
-                endIcon = endIcon,
-                modifier = thumbModifier.anchoredDraggable(
-                    enabled = !isLoading,
-                    state = draggableState,
-                    orientation = Orientation.Horizontal,
-                    overscrollEffect = overScrollEffect
-                )
+                modifier = Modifier.offset { IntOffset(draggableState.offset.roundToInt(), 0) }
+                    .anchoredDraggable(
+                        enabled = !isLoading,
+                        state = draggableState,
+                        orientation = Orientation.Horizontal,
+                        overscrollEffect = overscrollEffect
+                    )
             )
         })
 
