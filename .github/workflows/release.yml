@@ -2,8 +2,7 @@ name: release
 on:
   push:
     branches:
-      # - 'release/**'
-      - 'develop'
+      - 'release/**'
 
 jobs:
   build:
