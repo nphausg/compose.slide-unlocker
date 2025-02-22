@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build and Release LoomIn
+    name: Release
     runs-on: ubuntu-latest
 
     steps:
@@ -28,11 +28,11 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
 
-      - name: Assemble Draggable Library
+      - name: Assemble Library
         run: ./gradlew :draggable:assembleRelease -Pversion=$VERSION
       
-      - name: Publish Loom to GitHub Packages
-        run: ./gradlew :draggable:assembleRelease -Pversion=$VERSION -Pgpr.user=${{ secrets.GPR_USERNAME }} -Pgpr.token=${{ secrets.GPR_USERNAME }}
+      - name: Publish Library to GitHub Packages
+        run: ./gradlew :draggable:publish -Pversion=$VERSION -Pgpr.user=${{ secrets.GPR_USERNAME }} -Pgpr.token=${{ secrets.GPR_USERNAME }}
         env:
           GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
           GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
