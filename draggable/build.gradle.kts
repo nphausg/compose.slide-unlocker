@@ -89,7 +89,7 @@ tasks.register("renameAar") {
 
 publishing {
     publications {
-        create<MavenPublication>("draggle-publish") {
+        create<MavenPublication>("draggable-publish") {
             groupId = getLocalGroup()
             artifactId = getLocalArtifactId()
             version = getLibraryVersion()
