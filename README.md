@@ -43,6 +43,13 @@
 - Submit a pull request with a detailed explanation of your changes.
 - Please feel free to contact me or make a pull request.
 
+## ✨ Thank for all contributors
+
+<a href="https://github.com/hakkasuru" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/57172077?v=4" width="96" height="96">
+</a>
+
+
 ## 📢 Stay Connected
 💬 Found this useful? Give this repo a ⭐ and follow me for more Jetpack Compose content! 🎉
 

@@ -36,7 +36,12 @@ fun DraggableThumb(
     startIcon: @Composable () -> Unit = DraggableDefaults.Thumb.StartIcon,
     endIcon: @Composable () -> Unit = DraggableDefaults.Thumb.EndIcon
 ) {
-    Box(modifier = modifier.size(DraggableDefaults.Thumb.Size)) {
+    Box(
+        modifier = modifier
+            .size(DraggableDefaults.Thumb.Size)
+            .padding(DraggableDefaults.Thumb.Padding),
+        contentAlignment = Alignment.Center
+    ) {
         if (isLoading) {
             endIcon()
         } else {
