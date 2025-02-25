@@ -59,7 +59,8 @@ fun DraggableUnlocker(
     // Define the track start and end points (full width)
     val startOfTrackPx = 0f
     val endOfTrackPx = remember(fullWidth) {
-        with(density) { fullWidth - (2 * horizontalPadding + DraggableDefaults.Thumb.Size).toPx() }
+        // with(density) { fullWidth - (2 * horizontalPadding + DraggableDefaults.Thumb.Size).toPx() }
+        with(density) { fullWidth - DraggableDefaults.Thumb.Size.toPx() }
     }
 
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()

@@ -31,12 +31,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nphausg.app.theme.AppTheme
-import com.nphausg.foundation.ui.draggle.DraggableDefaults.Thumb.IconPadding
+import com.nphausg.foundation.ui.draggle.DraggableDefaults
 import com.nphausg.foundation.ui.draggle.DraggableDefaults.Thumb.Size
 import com.nphausg.foundation.ui.draggle.DraggableUnlocker
+import com.nphausg.foundation.ui.draggle.EndIcon
+import com.nphausg.foundation.ui.draggle.StartIcon
 import kotlinx.coroutines.delay
 
 private const val TIMEOUT = 4
@@ -90,6 +93,16 @@ private fun GrabDraggableUnlocker(modifier: Modifier = Modifier) {
             text = "Grab",
             style = MaterialTheme.typography.titleLarge
         )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Normal")
+            DraggableDefaults.Thumb.StartIcon()
+            Text(text = "Loading")
+            DraggableDefaults.Thumb.EndIcon()
+        }
         DraggableUnlocker(
             modifier = Modifier,
             isLoading = isLoading,
@@ -148,7 +161,8 @@ private fun OKXStartIcon(modifier: Modifier = Modifier) {
         modifier = modifier
             .size(Size)
             .background(color = Color.White, shape = CircleShape)
-            .padding(IconPadding),
+            .padding(DraggableDefaults.Thumb.Padding),
+        contentAlignment = Alignment.Center
     ) {
         Icon(
             tint = Color.Black,
@@ -164,7 +178,8 @@ private fun OKXEndIcon(modifier: Modifier = Modifier) {
         modifier = modifier
             .size(Size)
             .background(color = Color.Green, shape = CircleShape)
-            .padding(IconPadding),
+            .padding(DraggableDefaults.Thumb.Padding),
+        contentAlignment = Alignment.Center
     ) {
         Icon(
             modifier = modifier,

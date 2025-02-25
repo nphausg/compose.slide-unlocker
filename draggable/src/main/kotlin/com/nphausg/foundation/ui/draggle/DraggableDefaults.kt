@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -22,13 +23,12 @@ import com.nphausg.foundation.ui.draggle.DraggableDefaults.Track
 
 object DraggableDefaults {
     object Thumb {
-        val Size = 40.dp
-        val IconPadding = 8.dp
+        val Size = 56.dp
+        val Padding = 4.dp
     }
 
     object Track {
         val Height = 56.dp
-        val ContentPadding = PaddingValues(8.dp)
         val StartColor = Color(0xFF4CAF50)
         val StopColor = Color(0xFF117322)
     }
@@ -40,7 +40,8 @@ val DraggableDefaults.Thumb.StartIcon: @Composable () -> Unit
             modifier = Modifier
                 .size(Size)
                 .background(color = Color.White, shape = CircleShape)
-                .padding(IconPadding),
+                .padding(Padding),
+            contentAlignment = Alignment.Center
         ) {
             Icon(
                 tint = Track.StopColor,
@@ -56,7 +57,8 @@ val DraggableDefaults.Thumb.EndIcon: @Composable () -> Unit
             modifier = Modifier
                 .size(Size)
                 .background(color = Color.White, shape = CircleShape)
-                .padding(IconPadding),
+                .padding(12.dp),
+            contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(
                 modifier = Modifier.padding(2.dp),
